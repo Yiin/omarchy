@@ -1190,6 +1190,8 @@ ShellRoot {
       return hidden === true
     }
     invokeIfLoaded(id, "close", null)
+    // A summon still waiting on its Loader must not open the panel after this.
+    if (pendingPayloads[id]) pendingPayloads = shell.cacheWithoutKey(pendingPayloads, id)
     if (!openPanelIds[id]) return true
     var next = ({})
     for (var k in openPanelIds) if (k !== id) next[k] = openPanelIds[k]
